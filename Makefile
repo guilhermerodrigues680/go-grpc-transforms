@@ -16,7 +16,7 @@ cross: cmd clearbin
 
 .PHONY: protobuffer
 protobuffer:
-	protoc --go_out=./transport/grpc --go-grpc_out=./transport/grpc ./protobuffer-files/*.proto
+	protoc --go_out=. --go-grpc_out=. ./protobuffer-files/*.proto
 
 .PHONY: protobuffer-with-transform
 protobuffer-with-transform:

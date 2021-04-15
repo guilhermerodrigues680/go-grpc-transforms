@@ -32,7 +32,7 @@ func NewMathServiceClient(cc grpc.ClientConnInterface) MathServiceClient {
 
 func (c *mathServiceClient) Add(ctx context.Context, in *Num, opts ...grpc.CallOption) (*Num, error) {
 	out := new(Num)
-	err := c.cc.Invoke(ctx, "/todoapp.MathService/Add", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pbmath.MathService/Add", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func _MathService_Add_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/todoapp.MathService/Add",
+		FullMethod: "/pbmath.MathService/Add",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MathServiceServer).Add(ctx, req.(*Num))
@@ -90,7 +90,7 @@ func _MathService_Add_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var MathService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "todoapp.MathService",
+	ServiceName: "pbmath.MathService",
 	HandlerType: (*MathServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
