@@ -1,0 +1,23 @@
+////////////////////////////////////
+// GENERATED CODE -- DO NOT EDIT! //
+////////////////////////////////////
+
+package transform
+
+
+
+
+
+    
+// PbNumToNum convert gRPC to model
+func PbNumToNum(pbNum *pbmath.Num) *Num {
+    return &Num{
+        Num: pbNum.GetNum(),
+    }
+}
+// NumToPbNum convert model to gRPC
+func NumToPbNum(num *Num) *pbmath.Num {
+    return &pbmath.Num{
+        Num: num.Num,
+    }
+}

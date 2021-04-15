@@ -1,0 +1,20 @@
+//****************************************************
+// protoc --go_out=. --go-grpc_out=. ./*.proto
+// protoc --go_out=. --go-grpc_out=. ./protobuffer-files/*.proto
+//****************************************************
+
+syntax = "proto3";
+
+// dirout;package
+option go_package = "./pbmath;pbmath";
+
+package pbmath;
+
+service MathService {
+    // Unary RPC
+    rpc Add (Num) returns (Num){}
+}
+
+message Num {
+    double num = 1;
+}

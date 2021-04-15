@@ -1,0 +1,73 @@
+////////////////////////////////////
+// GENERATED CODE -- DO NOT EDIT! //
+////////////////////////////////////
+
+package transform
+
+{{- $Package:=.File.Package}}
+
+{{/* {{- define "fieldMethods"}}
+  {{- if isFieldRepeated .}}
+    get{{.Name | camelCase}}List?: () => {{. | jsType}};
+    set{{.Name | camelCase}}List?: ({{.Name}}: {{. | jsType}}) => void;
+    add{{.Name | camelCase}}?: ({{.Name}}: {{. | jsType | trimPrefix "Array<" | trimSuffix ">"}}) => void;
+    clear{{.Name | camelCase}}List?: () => void;
+  {{- else}}
+    get{{.Name | camelCase}}?: () => {{. | jsType}};
+    set{{.Name | camelCase}}?: ({{.Name}}: {{. | jsType}}) => void;
+
+    {{- if isFieldMessage .}}
+    clear{{.Name | camelCase}}?: () => void;
+    has{{.Name | camelCase}}?: () => boolean;
+    {{- end}}
+  {{- end}}
+{{- end}} */}}
+
+{{/* {{range .File.EnumType}}
+export1 type {{.Name}} = {|
+  {{- range .Value}}
+    {{.Name}}?: {{.Number}};
+  {{- end}}
+|};
+{{- end}} */}}
+
+{{- range .File.MessageType}}
+    {{- $MessageType := .Name}}
+
+    {{/* {{range .EnumType}}
+        export2 type {{$MessageType}}${{.Name}} = {|
+        {{- range .Value}}
+            {{.Name}}?: {{.Number}};
+        {{- end}}
+        |};
+    {{- end}}
+
+    {{range .NestedType}}
+        export3 type {{$MessageType}}${{.Name}} = {
+        {{- range .Field}}
+            {{- template "fieldMethods" .}}
+        {{- end}}
+        };
+    {{- end}} */}}
+
+{{- $PbVarName := .Name}}
+// Pb{{.Name | camelCase}}To{{.Name | camelCase}} convert gRPC to model
+func Pb{{.Name | camelCase}}To{{.Name | camelCase}}(pb{{.Name | camelCase}} *{{$Package}}.{{.Name}}) *{{.Name | camelCase}} {
+    return &{{$MessageType}}{
+    {{- range .Field}}
+        {{ .Name | camelCase}}: pb{{$PbVarName | camelCase}}.Get{{ .Name | camelCase}}(),
+    {{- end}}
+    }
+}
+
+{{- $ModelVarName := .Name}}
+// {{.Name | camelCase}}ToPb{{.Name | camelCase}} convert model to gRPC
+func {{.Name | camelCase}}ToPb{{.Name | camelCase}}({{$ModelVarName | lowerCamelCase}} *{{.Name | camelCase}}) *{{$Package}}.{{.Name}} {
+    return &{{$Package}}.{{$MessageType}}{
+    {{- range .Field}}
+        {{ $ModelVarName | camelCase }}: {{$ModelVarName | lowerCamelCase}}.{{ $ModelVarName | camelCase }},
+    {{- end}}
+    }
+}
+
+{{- end}}
